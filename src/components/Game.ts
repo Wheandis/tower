@@ -29,6 +29,7 @@ module com {
         public constructor() {
             super()
             new model.Data()
+            // model.Data.ins.setBest()
             this.info.emptyBlockHeight = 895 - 69 * Game.STLAYER
             this.addEventListener(eui.UIEvent.COMPLETE, this.onComplete, this)
             this.skinName = 'resource/eui_skins/home.exml'
@@ -61,6 +62,7 @@ module com {
             await this.scrollAnim(type)
             this.info.isShowFrontBg = !length
             this.gameInfo.score = length
+            this.gameInfo.bestScore = model.Data.ins.BestScore
         }
         /**
          * 滚动动画

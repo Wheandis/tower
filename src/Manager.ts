@@ -109,6 +109,7 @@ class Manager {
 		const {x, w, status} = this.getNewLayerInfo()
 		if (w <= 0) {
 			// console.log('over')
+			model.Data.ins.setBest()
 			model.Data.ins.setStatus('stop')
 			return
 		}
@@ -118,10 +119,9 @@ class Manager {
 		} else {
 			model.Data.ins.add({ props: { x, w, type: 'pillar' }, isp: true })
 		}
-		this.game.scroll.viewport['addChild'](this.dropRect)
-
+		// this.game.scroll.viewport['addChild'](this.dropRect)
 		const particleInfo: any = this.getParticlePosAndSize()
-		this.dropRect.show({ x, y: particleInfo.y, w, dir: 'left' })
+		// this.dropRect.show({ x, y: particleInfo.y, w, dir: 'left' })
 		if (status > 1) {
 			this.showParticle(particleInfo.x, particleInfo.y, { w: particleInfo.w, type: status === 3 ? 'perfect' : 'good' })
 		}

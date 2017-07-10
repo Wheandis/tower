@@ -1,8 +1,11 @@
 module model {
 	export class Data {
+		private static SCORE_KEY: string = 'ttt_best_score'
 		public static ins: Data
 		public constructor() {
 			Data.ins = this
+			// this.BestScore = parseInt(localStorage.getItem(Data.SCORE_KEY)) || 0
+			this.setBest()
 		}
 		/**
 		 * 建筑的列表
@@ -20,6 +23,17 @@ module model {
 		 */
 		@mobx.observable
 		public Status: string = 'playing'
+
+		/**
+		 * 最高分
+		 */
+		@mobx.observable
+		public BestScore: number = 0
+		/**
+		 * 金币
+		 */
+		@mobx.observable
+		public GoldNum: number = 0
 		/**
 		 * 添加一个层
 		 */
@@ -43,6 +57,21 @@ module model {
 		@mobx.action.bound
 		public setStatus(status: string): void {
 			this.Status = status
+		}
+		@mobx.action.bound
+		public setBest(): void {
+			const score = localStorage.getItem(Data.SCORE_KEY)
+			if (score) {
+				if (this.List.length > parseInt(score)) {
+					localStorage.setItem(Data.SCORE_KEY, this.List.length + '')
+					this.BestScore = this.List.length
+				}else{
+					this.BestScore = parseInt(score)
+				}
+			} else {
+				localStorage.setItem(Data.SCORE_KEY, this.List.length + '')
+				this.BestScore = this.List.length
+			}
 		}
 	}
 }
