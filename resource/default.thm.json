@@ -1,0 +1,7 @@
+{
+  "exmls": [],
+  "skins": {
+    "com.Block": "resource/eui_skins/Block.exml",
+    "com.Pillar": "resource/eui_skins/Pillar.exml"
+  }
+}

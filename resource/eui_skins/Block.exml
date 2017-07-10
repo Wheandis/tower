@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BlockSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="364" height="69">
+		<e:Group x="{info.x1}">
+			<e:Image width="{info.w1}" source="rect_0_png" horizontalCenter="0" y="10" height="59"/>
+			<e:Image width="{info.w2}" source="rect_1_png" y="28" />
+			<e:Image width="{info.w2}" source="rect_1_png" />
+			<e:Image visible="{_props.isShowFlag}" source="flag_png" x="{info.x3}" includeInLayout="false" />
+			<e:Image visible="{_props.isShowFlag}" source="flag_png" x="10" includeInLayout="false" scaleX="-1" />
+		</e:Group>
+		<e:Image mask="{dreMask}" source="rect_2_png" horizontalCenter="0" y="42" />
+		<e:Rect x="{info.x2}" width="{info.w3}" height="100%" id="dreMask" />
+	</e:Group>
+</e:Skin>

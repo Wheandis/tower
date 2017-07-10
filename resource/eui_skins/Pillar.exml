@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PillarSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="15d1c0bac82" />
+	<e:Group x="{_props.x}">
+		<e:Group id="container" height="69"/>
+		<e:List dataProvider="{collection}" height="69">
+			<e:itemRendererSkinName>
+				<e:Skin>
+					<e:Image source="{data.icon}" height="69"/>
+				</e:Skin>
+			</e:itemRendererSkinName>
+			<e:layout>
+				<e:HorizontalLayout gap="{gap}" />
+			</e:layout>
+		</e:List>
+	</e:Group>
+</e:Skin>

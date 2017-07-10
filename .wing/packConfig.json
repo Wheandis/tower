@@ -1,0 +1,9 @@
+{
+    "useClip": false,
+    "maxImageWidth": 1024,
+    "maxImageHeight": 1024,
+    "defaultResPath": "f:\\摸鱼游戏本地空间\\tuohuang.yl.com\\html\\egret\\tower\\resource\\default.res.json",
+    "packGroups": {
+        "preload": true
+    }
+}

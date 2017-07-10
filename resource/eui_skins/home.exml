@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" height="1300" width="750">
+	<e:Rect width="100%" height="100%" fillColor="0x85e1ea" />
+	<e:Image source="mountain_png" bottom="181" />
+	<e:Scroller width="100%" height="100%">
+		<e:Group scrollV="{info.scrollV}">
+			<e:Group height="{info.emptyBlockHeight}" />
+			<e:List minHeight="69" width="364" horizontalCenter="0" dataProvider="{collection}">
+				<e:itemRendererSkinName>
+					<e:Skin xmlns:com="com.*">
+						<com:Block visible="{data.isb}" includeInLayout="{data.isb}" props="{data.props}" />
+						<com:Pillar visible="{data.isp}" includeInLayout="{data.isp}" props="{data.props}" />
+					</e:Skin>
+				</e:itemRendererSkinName>
+				<e:layout>
+					<e:VerticalLayout gap="0" />
+				</e:layout>
+			</e:List>
+			<e:Group height="405" x="0">
+				<e:Image source="ground_png" bottom="0" />
+			</e:Group>
+			<e:layout>
+				<e:VerticalLayout gap="0" verticalAlign="bottom" horizontalAlign="center" />
+			</e:layout>
+		</e:Group>
+	</e:Scroller>
+	<e:BitmapLabel font="num_font_fnt" text="{gameInfo.score}" horizontalCenter="0.5" y="16.72" />
+	<e:Group horizontalCenter="0.5" y="110.86">
+		<e:Rect width="100%" height="100%" ellipseWidth="100" ellipseHeight="100" fillAlpha="0.3" />
+		<e:Group left="20" right="20" top="20" bottom="20">
+			<e:Label text="最好成绩:" textColor="0xfff150" bold="true" />
+			<e:BitmapLabel text="{gameInfo.bestScore}" font="num_font_fnt" scaleX="0.8" scaleY="0.8" />
+			<e:layout>
+				<e:HorizontalLayout verticalAlign="middle" />
+			</e:layout>
+		</e:Group>
+	</e:Group>
+	<e:Group right="42" y="23">
+		<e:Rect width="100%" height="100%" ellipseWidth="50" ellipseHeight="50" fillAlpha="0.3" />
+		<e:Label text="{gameInfo.gold}" textColor="0xFFF150" bold="true" left="20" right="50" top="20" bottom="20" size="30" />
+		<e:Image source="coin_png" right="-31" />
+	</e:Group>
+	<e:Group id="moveLayer"/>
+	<e:Image visible="{info.isShowFrontBg}" source="ground_png" bottom="0"/>
+	<e:Group width="100%" height="100%" id="eventLayer" />
+	<e:Button id="undoBtn" label="Button" x="85" y="1045">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Group width="138" height="170" anchorOffsetX="69" anchorOffsetY="85" scaleX.down="0.9" scaleY.down="0.9">
+					<e:Rect width="100%" fillAlpha="0.3" height="100%" ellipseHeight="50" ellipseWidth="50" />
+					<e:Image source="Arrow_png" left="20" right="20" top="20" />
+					<e:Image source="coin_png" left="20" y="117" width="40" height="40" />
+					<e:Label text="100" x="67" y="124" />
+				</e:Group>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="keepBtn" label="Button" x="663" y="926">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Group width="138" height="170" anchorOffsetX="69" anchorOffsetY="85" scaleX.down="0.9" scaleY.down="0.9">
+					<e:Rect width="100%" fillAlpha="0.3" height="100%" ellipseHeight="50" ellipseWidth="50" />
+					<e:Image source="Spiral_png" left="20" right="20" top="20" />
+					<e:Image source="coin_png" left="20" y="117" width="40" height="40" />
+					<e:Label text="500" x="67" y="124" />
+				</e:Group>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="restartBtn" label="Button" x="663" y="1116">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Group width="138" height="138" anchorOffsetX="69" anchorOffsetY="85" scaleX.down="0.9" scaleY.down="0.9">
+					<e:Rect width="100%" fillAlpha="0.3" height="100%" ellipseHeight="50" ellipseWidth="50" />
+					<e:Image source="restart_png" left="20" right="20" top="20" bottom="20" />
+				</e:Group>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>
