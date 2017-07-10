@@ -7,6 +7,7 @@ module com {
 		public constructor() {
 			super()
 			this.init()
+			this.cacheAsBitmap = true
 		}
 		private init(): void {
 			this.r1 = new eui.Image()

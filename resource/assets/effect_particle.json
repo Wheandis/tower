@@ -14,12 +14,12 @@
 ,"rotatePerSecondVariance":10
 ,"startAlphaVariance":0
 ,"startGreen":255
-,"startSize":20
+,"startSize":30
 ,"startRedVariance":0
-,"startSizeVariance":10
+,"startSizeVariance":15
 ,"emitAngle":270
 ,"emitterVariance":{"x":200,"y":10}
-,"endSize":2
+,"endSize":10
 ,"emitAngleVariance":30
 ,"engGreenVariance":0
 ,"startAlpha":0.8901960784313725
@@ -32,7 +32,7 @@
 ,"gravity":{"x":0,"y":300}
 ,"speedVariance":0
 ,"endAlpha":1
-,"maxParticles":30
+,"maxParticles":100
 ,"endSizeVariance":1
 ,"endAlphaVariance":0
 ,"blendFactorSource":"one"

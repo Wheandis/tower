@@ -28,6 +28,7 @@
 	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
 	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
 	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/particle/particle.js" src-release="libs/modules/particle/particle.min.js"></script>
 	<!--modules_files_end-->
 
     <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
@@ -38,11 +39,13 @@
 
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
-	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
-	<script egret="game" src="bin-debug/components/Block.js"></script>
-	<script egret="game" src="bin-debug/components/Game.js"></script>
-	<script egret="game" src="bin-debug/components/Pillar.js"></script>
 	<script egret="game" src="bin-debug/components/Rect.js"></script>
+	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/components/DropRect.js"></script>
+	<script egret="game" src="bin-debug/components/Game.js"></script>
+	<script egret="game" src="bin-debug/components/Particle.js"></script>
+	<script egret="game" src="bin-debug/components/Pillar.js"></script>
+	<script egret="game" src="bin-debug/components/Block.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/Manager.js"></script>
@@ -59,9 +62,9 @@
          data-frame-rate="60"
          data-content-width="750"
          data-content-height="1300"
-         data-show-paint-rect="true"
+         data-show-paint-rect="false"
          data-multi-fingered="2"
-         data-show-fps="true" data-show-log="false"
+         data-show-fps="false" data-show-log="false"
          data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
     <script>
@@ -72,7 +75,7 @@
          * "antialias": //WebGL模式下是否开启抗锯齿，true:开启，false:关闭，默认为false
          * }
          **/
-        egret.runEgret({renderMode:"webgl", audioType:0});
+        egret.runEgret({renderMode:"canvas", audioType:0});
     </script>
 </body>
 </html>

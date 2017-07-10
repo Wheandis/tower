@@ -10,6 +10,7 @@ module com {
         public keepBtn: eui.Button
         public restartBtn: eui.Button
         public moveLayer: eui.Group
+        public scroll: eui.Scroller
 
 
         private gameInfo: any = {

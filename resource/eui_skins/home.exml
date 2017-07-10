@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" height="1300" width="750">
 	<e:Rect width="100%" height="100%" fillColor="0x85e1ea" />
-	<e:Image source="mountain_png" bottom="181" />
-	<e:Scroller width="100%" height="100%">
+	<e:Image source="mountain_png"  anchorOffsetY="0" bottom="0" height="806" x="0"/>
+	<e:Scroller width="100%" height="100%" id="scroll">
 		<e:Group scrollV="{info.scrollV}">
 			<e:Group height="{info.emptyBlockHeight}" />
 			<e:List minHeight="69" width="364" horizontalCenter="0" dataProvider="{collection}">
@@ -20,7 +20,7 @@
 				<e:Image source="ground_png" bottom="0" />
 			</e:Group>
 			<e:layout>
-				<e:VerticalLayout gap="0" verticalAlign="bottom" horizontalAlign="center" />
+				<e:VerticalLayout gap="0.1" verticalAlign="bottom" horizontalAlign="center" />
 			</e:layout>
 		</e:Group>
 	</e:Scroller>
@@ -40,8 +40,8 @@
 		<e:Label text="{gameInfo.gold}" textColor="0xFFF150" bold="true" left="20" right="50" top="20" bottom="20" size="30" />
 		<e:Image source="coin_png" right="-31" />
 	</e:Group>
-	<e:Group id="moveLayer"/>
-	<e:Image visible="{info.isShowFrontBg}" source="ground_png" bottom="0"/>
+	<e:Group id="moveLayer" />
+	<e:Image visible="{info.isShowFrontBg}" source="ground_png" bottom="0" />
 	<e:Group width="100%" height="100%" id="eventLayer" />
 	<e:Button id="undoBtn" label="Button" x="85" y="1045">
 		<e:skinName>

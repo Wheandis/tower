@@ -1,12 +1,16 @@
 class Manager {
 	private game: com.Game
 	private rect: com.Rect
+	private particle: com.Particle
+	private dropRect: com.DropRect
 	private _moveInterval: number = 0
 	// 滑块位移偏量
-	private dir: number = 5
+	private dir: number = 8
 	public constructor(game: com.Game) {
 		this.game = game
 		this.rect = new com.Rect()
+		this.particle = new com.Particle()
+		this.dropRect = new com.DropRect()
 		this.game.moveLayer.addChild(this.rect)
 		mobx.autorun(() => {
 			this.render()
@@ -26,10 +30,10 @@ class Manager {
 		this.rect.visible = true
 		if (Math.random() >= 0.5) {
 			this.rect.x = 750 - width
-			this.dir = -10
+			this.dir = -8
 		} else {
 			this.rect.x = 0
-			this.dir = 10
+			this.dir = 8
 		}
 
 	}
@@ -102,7 +106,7 @@ class Manager {
 		if (!this.rect.visible) {
 			return
 		}
-		const {x, w} = this.getNewLayerInfo()
+		const {x, w, status} = this.getNewLayerInfo()
 		if (w <= 0) {
 			// console.log('over')
 			model.Data.ins.setStatus('stop')
@@ -114,8 +118,13 @@ class Manager {
 		} else {
 			model.Data.ins.add({ props: { x, w, type: 'pillar' }, isp: true })
 		}
-		// let isShowFlag = Math.random() > 0.6
-		// model.Data.ins.add({ props: { x, w, type: 'block', isShowFlag }, isb: true })
+		this.game.scroll.viewport['addChild'](this.dropRect)
+
+		const particleInfo: any = this.getParticlePosAndSize()
+		this.dropRect.show({ x, y: particleInfo.y, w, dir: 'left' })
+		if (status > 1) {
+			this.showParticle(particleInfo.x, particleInfo.y, { w: particleInfo.w, type: status === 3 ? 'perfect' : 'good' })
+		}
 
 	}
 	private onRestart(): void {
@@ -146,8 +155,34 @@ class Manager {
 			x = topItem.x
 		}
 		w = w > 10 ? w : 0
+		let status = 1
+		if (w >= topItem.w * 0.95) {
+			status = 3
+		} else if (w >= topItem.w * 0.9) {
+			status = 2
+		}
 		return {
-			x, w
+			x, w, status
+		}
+	}
+	private showParticle(x: number, y: number, props: any): void {
+		this.game.scroll.viewport['addChild'](this.particle)
+		this.particle.x = x
+		this.particle.y = y
+		this.particle.show(props)
+	}
+
+	private getParticlePosAndSize(): any {
+		const list = model.Data.ins.List
+		const n = list.length
+		if (!n) {
+			return {}
+		} else {
+			const item = list[n - 1]
+			let y = n <= com.Game.STLAYER ? 895 - 69 * (n - 1) : 895 - 69 * (com.Game.STLAYER - 1)
+			let w = item.props.w / 2
+			let x = 193 + w + item.props.x
+			return { x, y, w }
 		}
 	}
 }

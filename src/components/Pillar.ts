@@ -16,6 +16,7 @@ module com {
 		}
 		public constructor() {
 			super()
+			// this.cacheAsBitmap = true
 		}
 		protected partAdded(partName: string, instance: any): void {
 			super.partAdded(partName, instance)
