@@ -5,7 +5,7 @@ class Manager {
 	private dropRect: com.DropRect
 	private _moveInterval: number = 0
 	// 滑块位移偏量
-	private dir: number = 8
+	private dir: number = 5
 	public constructor(game: com.Game) {
 		this.game = game
 		this.rect = new com.Rect()
@@ -30,10 +30,10 @@ class Manager {
 		this.rect.visible = true
 		if (Math.random() >= 0.5) {
 			this.rect.x = 750 - width
-			this.dir = -8
+			this.dir = -5
 		} else {
 			this.rect.x = 0
-			this.dir = 8
+			this.dir = 5
 		}
 
 	}
