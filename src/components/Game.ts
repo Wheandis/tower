@@ -9,7 +9,6 @@ module com {
         public undoBtn: eui.Button
         public keepBtn: eui.Button
         public restartBtn: eui.Button
-        public moveLayer: eui.Group
         public scroll: eui.Scroller
 
 

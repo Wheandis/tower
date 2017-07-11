@@ -7,6 +7,7 @@ module com {
 		public constructor() {
 			super()
 			this.init()
+			this.includeInLayout = false
 			this.cacheAsBitmap = true
 		}
 		private init(): void {

@@ -11,7 +11,7 @@ class Manager {
 		this.rect = new com.Rect()
 		this.particle = new com.Particle()
 		this.dropRect = new com.DropRect()
-		this.game.moveLayer.addChild(this.rect)
+		this.game.scroll.viewport['addChild'](this.rect)
 		mobx.autorun(() => {
 			this.render()
 		})
