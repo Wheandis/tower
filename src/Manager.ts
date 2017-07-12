@@ -14,6 +14,9 @@ class Manager {
 			this.render()
 		})
 		mobx.autorun(() => {
+			this.game.setGoldNum(model.Data.ins.GoldNum)
+		})
+		mobx.autorun(() => {
 			this.toggleGame()
 		})
 		this.initEvent()
@@ -21,7 +24,7 @@ class Manager {
 	// **************监听函数************
 	private async render(): Promise<any> {
 		this.rect && (this.rect.visible = false)
-		await this.game.render()
+		await this.game.render(model.Data.ins)
 		this.rect.y = this.getMoveRectY() - 69
 		const width = this.getMoveRectSize()
 		this.rect.setSize(width)
@@ -33,7 +36,6 @@ class Manager {
 			this.rect.x = 0
 			this.dir = 5
 		}
-
 	}
 
 	private toggleGame(): void {
@@ -99,7 +101,11 @@ class Manager {
 	// ************事件*************
 	// 撤回
 	private onUndo(): void {
+		if (model.Data.ins.GoldNum < 100 || model.Data.ins.List.length === 0) {
+			return
+		}
 		model.Data.ins.pop()
+		model.Data.ins.addGold(-100)
 	}
 	// 玩游戏
 	private play(): void {
@@ -126,6 +132,9 @@ class Manager {
 		dropRect.show({ x: dir === 'left' ? this.rect.x + this.rect.width - w : this.rect.x + w, y: particleInfo.y, w: this.rect.width - w, dir })
 		if (status > 1) {
 			this.showParticle(particleInfo.x, particleInfo.y, { w: particleInfo.w, type: status === 3 ? 'perfect' : 'good' })
+			model.Data.ins.addGold(status === 3 ? 30 : 20)
+		} else {
+			model.Data.ins.addGold(10)
 		}
 
 	}
@@ -135,6 +144,9 @@ class Manager {
 	}
 
 	private onKeep(): void {
+		if (model.Data.ins.GoldNum < 500) {
+			return
+		}
 		let list = [...model.Data.ins.List]
 		list = list.reverse()
 		for (let i = 0, n = list.length; i < n; i++) {
@@ -144,6 +156,7 @@ class Manager {
 				break
 			}
 		}
+		model.Data.ins.addGold(-500)
 
 	}
 	/********事件****************/

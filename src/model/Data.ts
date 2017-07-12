@@ -1,11 +1,20 @@
 module model {
+	function setStorage(key: string, value: any): void {
+		localStorage.setItem(key, value)
+	}
+	function getStorage(key): number {
+		let value = localStorage.getItem(key) || '0'
+		return parseInt(value)
+	}
 	export class Data {
 		private static SCORE_KEY: string = 'ttt_best_score'
+		private static GOLD_KEY: string = 'ttt_gold'
 		public static ins: Data
 		public constructor() {
 			Data.ins = this
 			// this.BestScore = parseInt(localStorage.getItem(Data.SCORE_KEY)) || 0
 			this.setBest()
+			this.addGold(0)
 		}
 		/**
 		 * 建筑的列表
@@ -66,18 +75,17 @@ module model {
 		}
 		@mobx.action.bound
 		public setBest(): void {
-			const score = localStorage.getItem(Data.SCORE_KEY)
-			if (score) {
-				if (this.List.length > parseInt(score)) {
-					localStorage.setItem(Data.SCORE_KEY, this.List.length + '')
-					this.BestScore = this.List.length
-				} else {
-					this.BestScore = parseInt(score)
-				}
-			} else {
-				localStorage.setItem(Data.SCORE_KEY, this.List.length + '')
-				this.BestScore = this.List.length
-			}
+			let score = Math.max(getStorage(Data.SCORE_KEY), this.List.length)
+			setStorage(Data.SCORE_KEY, score)
+			this.BestScore = score
+		}
+
+		@mobx.action.bound
+		public addGold(num: number): void {
+			let gold = getStorage(Data.GOLD_KEY)
+			gold = Math.max(0, gold + num)
+			this.GoldNum = gold
+			setStorage(Data.GOLD_KEY, gold)
 		}
 	}
 }

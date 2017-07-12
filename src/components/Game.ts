@@ -37,22 +37,29 @@ module com {
             // 实例化游戏逻辑
             new Manager(this)
         }
+        public setGoldNum(num: number): void {
+            this.gameInfo.gold = num
+        }
         /** 
          * 渲染函数
          */
-        public async render(): Promise<any> {
-            const length = model.Data.ins.List.length
+        public async render(data: any): Promise<any> {
+            const {List, BestScore} = data
+            const length = List.length
             const l = this.collection.length
             let type = 'add'
             if (length) {
+                if (length === l) {
+                    return
+                }
                 if (length === l + 1) {
-                    this.collection.addItemAt(model.Data.ins.List[l], 0)
+                    this.collection.addItemAt(List[l], 0)
                     type = 'add'
                 } else if (length === l - 1) {
                     this.collection.removeItemAt(0)
                     type = 'minus'
                 } else {
-                    this.collection = new eui.ArrayCollection(model.Data.ins.List.reverse())
+                    this.collection = new eui.ArrayCollection(List.reverse())
                 }
             } else {
                 this.collection.length && this.collection.removeAll()
@@ -61,7 +68,7 @@ module com {
             await this.scrollAnim(type)
             this.info.isShowFrontBg = !length
             this.gameInfo.score = length
-            this.gameInfo.bestScore = model.Data.ins.BestScore
+            this.gameInfo.bestScore = BestScore
         }
         /**
          * 滚动动画
