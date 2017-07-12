@@ -2,7 +2,6 @@ class Manager {
 	private game: com.Game
 	private rect: com.Rect
 	private particle: com.Particle
-	private dropRect: com.DropRect
 	private _moveInterval: number = 0
 	// 滑块位移偏量
 	private dir: number = 5
@@ -10,7 +9,6 @@ class Manager {
 		this.game = game
 		this.rect = new com.Rect()
 		this.particle = new com.Particle()
-		this.dropRect = new com.DropRect()
 		this.game.scroll.viewport['addChild'](this.rect)
 		mobx.autorun(() => {
 			this.render()
@@ -44,11 +42,13 @@ class Manager {
 			egret.clearInterval(this._moveInterval)
 			this.rect.visible = false
 			this.game.undoBtn.visible = false
+			this.game.keepBtn.visible = true
 			this.game.eventLayer.visible = false
 			return
 		}
 		if (status === 'playing') {
 			this.game.undoBtn.visible = true
+			this.game.keepBtn.visible = false
 			this.game.eventLayer.visible = true
 			this._moveInterval = egret.setInterval(this.runGame, this, 16)
 			return
@@ -71,7 +71,7 @@ class Manager {
 	private initEvent(): void {
 		this.game.undoBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onUndo, this)
 		this.game.restartBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRestart, this)
-		this.game.keepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, () => { }, this)
+		this.game.keepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onKeep, this)
 		this.game.eventLayer.addEventListener(egret.TouchEvent.TOUCH_TAP, this.play, this)
 	}
 
@@ -106,7 +106,8 @@ class Manager {
 		if (!this.rect.visible) {
 			return
 		}
-		const {x, w, status} = this.getNewLayerInfo()
+		const {x, w, status, dir} = this.getNewLayerInfo()
+
 		if (w <= 0) {
 			// console.log('over')
 			model.Data.ins.setBest()
@@ -119,9 +120,10 @@ class Manager {
 		} else {
 			model.Data.ins.add({ props: { x, w, type: 'pillar' }, isp: true })
 		}
-		// this.game.scroll.viewport['addChild'](this.dropRect)
+		const dropRect: com.DropRect = new com.DropRect()
 		const particleInfo: any = this.getParticlePosAndSize()
-		// this.dropRect.show({ x, y: particleInfo.y, w, dir: 'left' })
+		this.game.scroll.viewport['addChild'](dropRect)
+		dropRect.show({ x: dir === 'left' ? this.rect.x + this.rect.width - w : this.rect.x + w, y: particleInfo.y, w: this.rect.width - w, dir })
 		if (status > 1) {
 			this.showParticle(particleInfo.x, particleInfo.y, { w: particleInfo.w, type: status === 3 ? 'perfect' : 'good' })
 		}
@@ -131,8 +133,22 @@ class Manager {
 		model.Data.ins.clear()
 		model.Data.ins.setStatus('playing')
 	}
+
+	private onKeep(): void {
+		let list = [...model.Data.ins.List]
+		list = list.reverse()
+		for (let i = 0, n = list.length; i < n; i++) {
+			if (list[i].props.w >= 364 * 0.5) {
+				model.Data.ins.splice(list.length - i - 1)
+				model.Data.ins.setStatus('playing')
+				break
+			}
+		}
+
+	}
 	/********事件****************/
 
+	// 获取添加层的状态
 	private getNewLayerInfo(): any {
 		const list = model.Data.ins.List
 		const topItem: any = {}
@@ -146,13 +162,16 @@ class Manager {
 		}
 		// console.log(topItem)
 		let x = this.rect.x - (193 + topItem.x)
+		let dir: string
 		let w = 0
 		if (x >= 0) {
 			w = topItem.w - x
 			x = topItem.x + x
+			dir = 'right'
 		} else {
 			w = topItem.w + x
 			x = topItem.x
+			dir = 'left'
 		}
 		w = w > 10 ? w : 0
 		let status = 1
@@ -162,16 +181,17 @@ class Manager {
 			status = 2
 		}
 		return {
-			x, w, status
+			x, w, status, dir
 		}
 	}
+	// 显示粒子效果
 	private showParticle(x: number, y: number, props: any): void {
 		this.game.scroll.viewport['addChild'](this.particle)
 		this.particle.x = x
 		this.particle.y = y
 		this.particle.show(props)
 	}
-
+	// 获取粒子效果释放的位置
 	private getParticlePosAndSize(): any {
 		const list = model.Data.ins.List
 		const n = list.length

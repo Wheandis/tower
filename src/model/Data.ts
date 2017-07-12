@@ -53,7 +53,13 @@ module model {
 		public clear(): void {
 			this.List.splice(0)
 		}
-
+		/**
+		 * 保留前几层
+		 */
+		@mobx.action.bound
+		public splice(num: number): void {
+			this.List.splice(num)
+		}
 		@mobx.action.bound
 		public setStatus(status: string): void {
 			this.Status = status
@@ -65,7 +71,7 @@ module model {
 				if (this.List.length > parseInt(score)) {
 					localStorage.setItem(Data.SCORE_KEY, this.List.length + '')
 					this.BestScore = this.List.length
-				}else{
+				} else {
 					this.BestScore = parseInt(score)
 				}
 			} else {

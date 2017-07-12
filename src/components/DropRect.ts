@@ -14,11 +14,19 @@ module com {
 			const {x, y, w, dir} = props
 			this.width = w
 			this.y = y - 69 * (1 - DropRect.offset)
-			const offestX = this.width * (1 - DropRect.offset)
-			this.x = dir === 'left' ? x - offestX : x + offestX
+			let rotation
+			if (dir === 'left') {
+				this.anchorOffsetX = this.width * DropRect.offset
+				this.x = x - w + this.anchorOffsetX
+				rotation = -200
+			} else {
+				this.anchorOffsetX = this.width * (1 - DropRect.offset)
+				this.x = x + this.anchorOffsetX
+				rotation = 200
+			}
 			egret.Tween.get(this).wait(200).to({
-				rotation: 120,
-				y: y - 100,
+				rotation,
+				y: y + 200,
 				alpha: 0
 			}, 1000).call(() => {
 				this.parent && this.parent.removeChild(this)

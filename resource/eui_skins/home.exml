@@ -42,7 +42,7 @@
 	</e:Group>
 	<e:Image visible="{info.isShowFrontBg}" source="ground_png" bottom="0" />
 	<e:Group width="100%" height="100%" id="eventLayer" />
-	<e:Button id="undoBtn" label="Button" x="85" y="1045">
+	<e:Button id="undoBtn" label="Button" x="85" bottom="170">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Group width="138" height="170" anchorOffsetX="69" anchorOffsetY="85" scaleX.down="0.9" scaleY.down="0.9">
@@ -54,7 +54,7 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button id="keepBtn" label="Button" x="663" y="926">
+	<e:Button id="keepBtn" label="Button" x="663" bottom="330">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Group width="138" height="170" anchorOffsetX="69" anchorOffsetY="85" scaleX.down="0.9" scaleY.down="0.9">
@@ -66,7 +66,7 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button id="restartBtn" label="Button" x="663" y="1116">
+	<e:Button id="restartBtn" label="Button" x="663" bottom="170">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Group width="138" height="138" anchorOffsetX="69" anchorOffsetY="85" scaleX.down="0.9" scaleY.down="0.9">
